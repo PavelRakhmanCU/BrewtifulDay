@@ -1,25 +1,37 @@
-import logo from './logo.svg';
 import './App.css';
+import GlobalContextProvider from './context/GlobalContext';
+import { Route, Routes } from 'react-router-dom';
+import ToggleSwitch from './components/ToggleSwitch';
+import NavigationMenu from './components/NavigationMenu';
+import ShoppingCartPage from './pages/ShoppingCartPage';
+import Menu from './pages/Menu';
+import ShoppingCart from './pages/CartIcon';
+import RegistrationForm from './pages/Register';
+import ContactUsForm from './pages/ContactUs';
+import AboutUs from './pages/About';
+import Home from './pages/Home';
+import Footer from './components/Footer';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <GlobalContextProvider>
+      <div className="App">
+        <ToggleSwitch />
+        <NavigationMenu />
+        <ShoppingCart />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/menu" element={<Menu />} />
+          <Route path="/cart" element={<ShoppingCartPage />} />
+          <Route path="/register" element={<RegistrationForm />} />
+          <Route path="/contact" element={<ContactUsForm />} />
+          <Route path="/about" element={<AboutUs />} />
+        </Routes>
+        <Footer />
+      </div>
+    </GlobalContextProvider>
   );
 }
 
-export default App;
+export default App; 
