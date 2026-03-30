@@ -1,24 +1,47 @@
-import { createContext, useState } from "react";
-
-
+import { createContext, useState, useEffect, useCallback } from "react";
+import {
+  loadCartFromStorage,
+  saveCartToStorage,
+  clearCartStorage,
+} from "../utils/cartStorage";
 
 export const GlobalContext = createContext();
 
-const GlobalContextProvider = ({children})=>{
-const [toggleActivator, setToggleActivator] = useState(false) //will be used to control the toggle switch and navigation menu
-    const [cartItems, setCartItems] = useState([]); // cartItems is an array of objects
-const [cartTotal, setCartTotal] = useState(0); //total price of all items in cart
-const[quantity, setQuantity] = useState(0); //quantity of items in cart
+const GlobalContextProvider = ({ children }) => {
+  const [toggleActivator, setToggleActivator] = useState(false);
+  const [cartItems, setCartItems] = useState(loadCartFromStorage);
+  const [cartTotal, setCartTotal] = useState(0);
+  const [quantity, setQuantity] = useState(0);
 
-    return(
-    <GlobalContext.Provider value={{
+  useEffect(() => {
+    saveCartToStorage(cartItems);
+    setQuantity(cartItems.length);
+  }, [cartItems]);
+
+  const clearCart = useCallback(() => {
+    setCartItems([]);
+    setCartTotal(0);
+    setQuantity(0);
+    clearCartStorage();
+  }, []);
+
+  return (
+    <GlobalContext.Provider
+      value={{
         toggleActivator,
-         setToggleActivator,
-          cartItems,
-           setCartItems,
-            cartTotal,
-             setCartTotal,quantity, setQuantity}}>{children}</GlobalContext.Provider>
-)
-}
+        setToggleActivator,
+        cartItems,
+        setCartItems,
+        cartTotal,
+        setCartTotal,
+        quantity,
+        setQuantity,
+        clearCart,
+      }}
+    >
+      {children}
+    </GlobalContext.Provider>
+  );
+};
 
-export default GlobalContextProvider
+export default GlobalContextProvider;

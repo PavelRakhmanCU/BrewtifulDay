@@ -7,15 +7,19 @@ const Footer = () => {
   return (
     <div className="footer">
       <div className="email-container">
-        <div className="email-info">
-          <span>brewtifulday@example.com</span>
-          <span><FaEnvelope></FaEnvelope></span>
+        <div className="email-info footer-contact-row">
+          <span className="footer-contact-icon" aria-hidden="true">
+            <FaEnvelope />
+          </span>
+          <span className="footer-contact-text">brewtifulday@example.com</span>
         </div>
       </div>
       <div className="telephone-container">
-        <div className="telephone-info">
-          <span>123-456-7890</span>
-          <span><IoIosCall></IoIosCall></span>
+        <div className="telephone-info footer-contact-row">
+          <span className="footer-contact-icon" aria-hidden="true">
+            <IoIosCall />
+          </span>
+          <span className="footer-contact-text">123-456-7890</span>
         </div>
       </div>
       <div className="social-media-container">
