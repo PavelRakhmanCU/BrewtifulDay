@@ -25,6 +25,7 @@ function App() {
           <Route path="/menu" element={<Menu />} />
           <Route path="/cart" element={<ShoppingCartPage />} />
           <Route path="/register" element={<RegistrationForm />} />
+          <Route path="/reserve" element={<RegistrationForm />} />
           <Route path="/contact" element={<ContactUsForm />} />
           <Route path="/about" element={<AboutUs />} />
         </Routes>

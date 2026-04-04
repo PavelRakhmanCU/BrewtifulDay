@@ -3,7 +3,7 @@ import { GlobalContext } from "../context/GlobalContext";
 import { v4 as uuidv4 } from "uuid"; 
 
 const Card = ({ item }) => {
-  const {quantity, setQuantity}= useContext(GlobalContext);
+  const { setQuantity } = useContext(GlobalContext);
   const [isClicked, setIsClicked] = useState(false);
   const handleClick = () => {
     setIsClicked(!isClicked);
@@ -35,7 +35,13 @@ useEffect(() => {
   return (
     <div className={`card ${isClicked ? 'clicked' : ''}`} onClick={() => handleClick()}>
       <h2 className="card-title">{item.get('name')}</h2>
-      {item.get('image') && <img src={item.get('image')} alt="card image" className="card-image" />}
+      {item.get('image') && (
+        <img
+          src={item.get('image')}
+          alt={item.get('name') ? String(item.get('name')) : 'Menu item'}
+          className="card-image"
+        />
+      )}
       <div className="card-body">
         <p className="card-info">{item.get('description')}</p>
         <p>Price: ${item.get('price')}</p>

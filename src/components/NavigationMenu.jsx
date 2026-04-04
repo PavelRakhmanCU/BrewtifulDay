@@ -1,5 +1,5 @@
 import { GlobalContext } from "../context/GlobalContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import NavLink from "./NavLink";
 import { useLocation } from "react-router-dom";
 const NavigationMenu = ()=>{
@@ -12,9 +12,9 @@ const NavigationMenu = ()=>{
         {route:"/about", text:"About Us"}
     ]
     let location=useLocation();
-    useEffect(()=>{
+    useEffect(() => {
         setToggleActivator(false);
-    },[location.pathname])
+    }, [location.pathname, setToggleActivator]);
     return(
         <div className={`navigation-menu ${toggleActivator ? "active" : ""}`}>
             <ul>

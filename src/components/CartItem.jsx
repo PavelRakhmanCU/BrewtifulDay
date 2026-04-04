@@ -1,17 +1,39 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import { GlobalContext } from "../context/GlobalContext";
 
+const calculateNewIndividualPrice = (item) => {
+  if (item instanceof Map) {
+    let basePrice = item.get('price')
+    let shotsPrice = 0;
+    let syrupPrice = 0;
+    let toppingPrice = 0;
+
+    if (item.get('size') === 'medium') {
+      basePrice += basePrice * 0.50;
+    } else if (item.get('size') === 'large') {
+      basePrice += basePrice * 0.75;
+    }
+
+    if (item.get('shots') !== 'none') {
+      shotsPrice = parseInt(item.get('shots')) * 0.50;
+    }
+
+    if (item.get('syrup') !== 'none') {
+      syrupPrice = 0.50;
+    }
+
+    if (item.get('topping') !== 'none') {
+      toppingPrice = 0.20;
+    }
+
+    let result = (basePrice + shotsPrice + syrupPrice + toppingPrice) * (item.get('quantity') || 1);
+    return result;
+  }
+}
+
 const CartItem = ({ item }) => {
-  //state variables
-  const [customize, setCustomize] = useState(false); // will teh item be customized?
-  const [size, setSize] = useState('small'); // size of the item
-  const [milk, setMilk] = useState(item.milk || ''); // milk type
-  const [sweetener, setSweetener] = useState('none'); // sweetener type
-  const [syrup, setSyrup] = useState('none'); //  syrup type
-  const [shots, setShots] = useState('none'); // how many shots of espresso
-  const [topping, setTopping] = useState('none'); // topping type
-  const [calculatedPrice, setCalculatedPrice] = useState(0); //will be updated after customization
-  const { cartTotal, setCartTotal } = useContext(GlobalContext)
+  const [customize, setCustomize] = useState(false);
+  const { setCartTotal } = useContext(GlobalContext)
   const { cartItems, setCartItems } = useContext(GlobalContext)
 
   //customization input onChange handlers
@@ -94,37 +116,6 @@ const CartItem = ({ item }) => {
     //if customize is true, we render customization options
   }
 
-  //next comes the function that calculates the individual price of each item in the cart after the customization options are applied
-  const calculateNewIndividualPrice = (item) => {
-  if (item instanceof Map) {
-    let basePrice = item.get('price')
-    let shotsPrice = 0;
-    let syrupPrice = 0;
-    let toppingPrice = 0;
-
-    if (item.get('size') === 'medium') {
-      basePrice += basePrice * 0.50;
-    } else if (item.get('size') === 'large') {
-      basePrice += basePrice * 0.75;
-    }
-
-    if (item.get('shots') !== 'none') {
-      shotsPrice = parseInt(item.get('shots')) * 0.50;
-    }
-
-    if (item.get('syrup') !== 'none') {
-      syrupPrice = 0.50;
-    }
-
-    if (item.get('topping') !== 'none') {
-      toppingPrice = 0.20;
-    }
-
-    let result = (basePrice + shotsPrice + syrupPrice + toppingPrice) * (item.get('quantity') || 1);
-    return result;
-  }
-} 
-
   // Now let's handle th delete button
   const removeItemFromCart = (item) => {
     if (item instanceof Map) {
@@ -135,21 +126,21 @@ const CartItem = ({ item }) => {
   } // since in the card component each item gets a unique cartId, we can use it to identify the item to be deleted
   //without impacting the other items in the cart which have the same name and/ or id
 
-  //Now let us calculate the total cost of all item sin the cart
-  const calculateCartTotal = () => {
-  let total = 0;
-  cartItems.forEach(item => {
-    total += calculateNewIndividualPrice(item);
-  });
-  setCartTotal(total);
-} 
+  const calculateCartTotal = useCallback(() => {
+    let total = 0;
+    cartItems.forEach((cartItem) => {
+      total += calculateNewIndividualPrice(cartItem);
+    });
+    setCartTotal(total);
+  }, [cartItems, setCartTotal]);
+
   useEffect(() => {
-  if (cartItems.length > 0) {
-    calculateCartTotal();
-  } else {
-    setCartTotal(0);
-  }
-}, [cartItems]); 
+    if (cartItems.length > 0) {
+      calculateCartTotal();
+    } else {
+      setCartTotal(0);
+    }
+  }, [cartItems, calculateCartTotal, setCartTotal]);
 
   return (
     <div className="cart-item">
