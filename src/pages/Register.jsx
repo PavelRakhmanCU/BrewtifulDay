@@ -112,60 +112,177 @@ const RegistrationForm = () => {
 
   return (
     <div className="registration-form-container">
-      <form className="registration-form" onSubmit={handleSubmit}>
+      <form className="registration-form" onSubmit={handleSubmit} noValidate>
         <h2>Register a new account</h2>
         <div className="form-group">
-          <label>First Name:</label>
-          <input type="text" name="firstName" value={firstName} onChange={handleChange} />
-          {errors.firstName && <div className="error">{errors.firstName}</div>}
+          <label htmlFor="reg-firstName">First name</label>
+          <input
+            id="reg-firstName"
+            type="text"
+            name="firstName"
+            value={firstName}
+            onChange={handleChange}
+            autoComplete="given-name"
+          />
+          {errors.firstName && (
+            <div className="error" role="alert">
+              {errors.firstName}
+            </div>
+          )}
         </div>
         <div className="form-group">
-          <label>Last Name:</label>
-          <input type="text" name="lastName" value={lastName} onChange={handleChange} />
-          {errors.lastName && <div className="error">{errors.lastName}</div>}
+          <label htmlFor="reg-lastName">Last name</label>
+          <input
+            id="reg-lastName"
+            type="text"
+            name="lastName"
+            value={lastName}
+            onChange={handleChange}
+            autoComplete="family-name"
+          />
+          {errors.lastName && (
+            <div className="error" role="alert">
+              {errors.lastName}
+            </div>
+          )}
         </div>
         <div className="form-group">
-          <label>Date of Birth:</label>
-          <input type="date" name="dateOfBirth" value={dateOfBirth} onChange={handleChange} />
-          {errors.dateOfBirth && <div className="error">{errors.dateOfBirth}</div>}
+          <label htmlFor="reg-dateOfBirth">Date of birth</label>
+          <input
+            id="reg-dateOfBirth"
+            type="date"
+            name="dateOfBirth"
+            value={dateOfBirth}
+            onChange={handleChange}
+            autoComplete="bday"
+          />
+          {errors.dateOfBirth && (
+            <div className="error" role="alert">
+              {errors.dateOfBirth}
+            </div>
+          )}
         </div>
         <div className="form-group">
-          <label>Address:</label>
-          <input type="text" name="address" value={address} onChange={handleChange} />
-          {errors.address && <div className="error">{errors.address}</div>}
+          <label htmlFor="reg-address">Street address</label>
+          <input
+            id="reg-address"
+            type="text"
+            name="address"
+            value={address}
+            onChange={handleChange}
+            autoComplete="street-address"
+          />
+          {errors.address && (
+            <div className="error" role="alert">
+              {errors.address}
+            </div>
+          )}
         </div>
         <div className="form-group">
-          <label>City:</label>
-          <input type="text" name="city" value={city} onChange={handleChange} />
-          {errors.city && <div className="error">{errors.city}</div>}
+          <label htmlFor="reg-city">City</label>
+          <input
+            id="reg-city"
+            type="text"
+            name="city"
+            value={city}
+            onChange={handleChange}
+            autoComplete="address-level2"
+          />
+          {errors.city && (
+            <div className="error" role="alert">
+              {errors.city}
+            </div>
+          )}
         </div>
         <div className="form-group">
-          <label>State:</label>
-          <input type="text" name="state" value={state} onChange={handleChange} />
-          {errors.state && <div className="error">{errors.state}</div>}
+          <label htmlFor="reg-state">State / province</label>
+          <input
+            id="reg-state"
+            type="text"
+            name="state"
+            value={state}
+            onChange={handleChange}
+            autoComplete="address-level1"
+          />
+          {errors.state && (
+            <div className="error" role="alert">
+              {errors.state}
+            </div>
+          )}
         </div>
         <div className="form-group">
-          <label>Country:</label>
-          <input type="text" name="country" value={country} onChange={handleChange} />
-          {errors.country && <div className="error">{errors.country}</div>}
+          <label htmlFor="reg-country">Country</label>
+          <input
+            id="reg-country"
+            type="text"
+            name="country"
+            value={country}
+            onChange={handleChange}
+            autoComplete="country-name"
+          />
+          {errors.country && (
+            <div className="error" role="alert">
+              {errors.country}
+            </div>
+          )}
         </div>
         <div className="form-group">
-          <label>Zip Code:</label>
-          <input type="text" name="zipCode" value={zipCode} onChange={handleChange} />
-          {errors.zipCode && <div className="error">{errors.zipCode}</div>}
+          <label htmlFor="reg-zipCode">ZIP or postal code</label>
+          <input
+            id="reg-zipCode"
+            type="text"
+            name="zipCode"
+            value={zipCode}
+            onChange={handleChange}
+            autoComplete="postal-code"
+          />
+          {errors.zipCode && (
+            <div className="error" role="alert">
+              {errors.zipCode}
+            </div>
+          )}
         </div>
         <div className="form-group">
-          <label>Email:</label>
-          <input type="email" name="email" value={email} onChange={handleChange} />
-          {errors.email && <div className="error">{errors.email}</div>}
+          <label htmlFor="reg-email">Email</label>
+          <input
+            id="reg-email"
+            type="email"
+            name="email"
+            value={email}
+            onChange={handleChange}
+            autoComplete="email"
+            inputMode="email"
+          />
+          {errors.email && (
+            <div className="error" role="alert">
+              {errors.email}
+            </div>
+          )}
         </div>
         <div className="form-group">
-          <label>Telephone:</label>
-          <input type="tel" name="telephone" value={telephone} onChange={handleChange} />
-          {errors.telephone && <div className="error">{errors.telephone}</div>}
+          <label htmlFor="reg-telephone">Telephone</label>
+          <input
+            id="reg-telephone"
+            type="tel"
+            name="telephone"
+            value={telephone}
+            onChange={handleChange}
+            autoComplete="tel"
+            inputMode="numeric"
+            placeholder="555-555-5555"
+          />
+          {errors.telephone && (
+            <div className="error" role="alert">
+              {errors.telephone}
+            </div>
+          )}
         </div>
-        <div className="form-group">
-          <input type="submit" value="Register" />
+        <div className="form-group form-group--submit">
+          <input
+            type="submit"
+            value="Register"
+            aria-label="Submit registration form"
+          />
         </div>
       </form>
     </div>

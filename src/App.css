@@ -168,9 +168,11 @@ cursor: pointer;
     margin: 0.25rem 0;
   }
   .about-us-container {
-    width: 90%;
+    width: 100%;
+    max-width: 100%;
     margin: 1rem auto;
-    padding: 1rem;
+    padding: 1rem max(0.75rem, env(safe-area-inset-left)) 1rem max(0.75rem, env(safe-area-inset-right));
+    box-sizing: border-box;
   }
   .about-us-container h1 {
     font-size: 1.5rem;
@@ -202,20 +204,22 @@ cursor: pointer;
     width: 100%
   }
 
-   .registration-form-container {
-    width: 90%;
+  .registration-form-container {
+    width: 100%;
+    max-width: 100%;
     margin: 1rem auto;
-    padding: 1rem;
+    padding: 1rem max(0.75rem, env(safe-area-inset-left)) 1rem max(0.75rem, env(safe-area-inset-right));
+    box-sizing: border-box;
   }
-  .registration-form h2 {
+  .registration-form-container .registration-form h2 {
     font-size: 1.2rem;
   }
-  .form-group input[type="text"],
-  .form-group input[type="email"],
-  .form-group input[type="tel"],
-  .form-group input[type="date"] {
-    padding: 0.3rem;
-    font-size: 0.9rem;
+  .registration-form-container .form-group input[type="text"],
+  .registration-form-container .form-group input[type="email"],
+  .registration-form-container .form-group input[type="tel"],
+  .registration-form-container .form-group input[type="date"] {
+    padding: 0.45rem 0.55rem;
+    font-size: 0.95rem;
   }
 }
 
@@ -435,68 +439,112 @@ cursor: pointer;
 
 
 
-/* registration form styles*/
+/* registration form styles (dark glass panel; scoped to registration page) */
 .registration-form-container {
-  max-width: 30rem;
+  width: 100%;
+  max-width: min(30rem, 100%);
   margin: 3rem auto;
   padding: 2rem;
-  border: 0.1rem solid var(--clr4);
-  border-radius: 0.5rem;
-  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  color-scheme: dark;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  background: rgba(47, 67, 90, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow:
+    0 6px 28px rgba(0, 0, 0, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-.registration-form {
+.registration-form-container .registration-form {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  min-width: 0;
 }
 
-.registration-form h2 {
+.registration-form-container .registration-form h2 {
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   font-size: 1.5rem;
-  color: var(--clr4);
+  color: rgba(245, 240, 235, 0.98);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45), 0 2px 14px rgba(0, 0, 0, 0.35);
 }
 
-.form-group {
+.registration-form-container .form-group {
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
-.form-group label {
-  margin-bottom: 0.5rem;
+.registration-form-container .form-group label {
+  margin-bottom: 0.45rem;
   font-size: 1rem;
+  font-weight: 700;
+  color: rgba(245, 240, 235, 0.95);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.42), 0 2px 10px rgba(0, 0, 0, 0.28);
+}
+
+.registration-form-container .form-group input[type="text"],
+.registration-form-container .form-group input[type="email"],
+.registration-form-container .form-group input[type="tel"],
+.registration-form-container .form-group input[type="date"] {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 0.35rem;
+  font-size: 1rem;
+  color: #faf8f5;
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.28);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+.registration-form-container .form-group input::placeholder {
+  color: rgba(245, 240, 235, 0.55);
+}
+
+.registration-form-container .form-group input:focus {
+  border-color: rgba(208, 180, 159, 0.95);
+  box-shadow:
+    0 0 0 2px rgba(208, 180, 159, 0.35),
+    0 3px 14px rgba(0, 0, 0, 0.35);
+}
+
+.registration-form-container .form-group input[type="submit"] {
+  padding: 0.65rem 1rem;
+  background: rgba(208, 180, 159, 0.95);
   color: var(--clr4);
-}
-
-.form-group input[type="text"],
-.form-group input[type="email"],
-.form-group input[type="tel"],
-.form-group input[type="date"] {
-  padding: 0.5rem;
-  border: 0.1rem solid var(--clr4);
-  border-radius: 0.2rem;
-  font-size: 1rem;
-}
-
-.form-group input[type="submit"] {
-  padding: 0.5rem;
-  background-color: var(--clr2);
-  color: #fff;
-  border: none;
-  border-radius: 0.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 0.4rem;
   cursor: pointer;
   font-size: 1rem;
+  font-weight: 700;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.35);
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.35);
 }
 
-.form-group input[type="submit"]:hover {
-  background-color: var(--clr3);
+.registration-form-container .form-group input[type="submit"]:hover {
+  background: rgba(171, 107, 81, 0.95);
+  color: #faf8f5;
+  border-color: rgba(255, 255, 255, 0.55);
 }
 
-.error {
-  color: red;
-  font-size: 0.8rem;
-  margin-top: 0.2rem;
+.registration-form-container .form-group input[type="submit"]:focus-visible {
+  outline: 2px solid rgba(245, 240, 235, 0.9);
+  outline-offset: 3px;
+}
+
+.registration-form-container .error {
+  color: #ffc9c9;
+  font-size: 0.85rem;
+  margin-top: 0.35rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
 }
 
 /*Contact Us form styles*/
@@ -570,35 +618,50 @@ cursor: pointer;
 }
 
 
-/*About us styles*/
-
+/* About us — glassy dark content panel */
 .about-us-container {
   max-width: 40rem;
+  width: 100%;
   margin: 3rem auto;
   padding: 2rem;
   text-align: center;
+  box-sizing: border-box;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(47, 67, 90, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow:
+    0 8px 36px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .about-us-container h1 {
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: var(--clr4);
+  color: rgba(245, 240, 235, 0.98);
+  text-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.5),
+    0 3px 16px rgba(0, 0, 0, 0.38);
 }
 
 .about-us-container h2 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: var(--clr4);
+  color: rgba(245, 240, 235, 0.96);
+  text-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.48),
+    0 2px 12px rgba(0, 0, 0, 0.35);
 }
 
 .about-us-container p {
   font-size: 1rem;
-font-weight: bold;
-  line-height: 1.5;
-  color: var(--clr4);
-  text-shadow: 0 0 0.1rem rgba(0, 0, 0, 0.1);
-  
-  
+  font-weight: 600;
+  line-height: 1.65;
+  color: rgba(245, 240, 235, 0.94);
+  text-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.45),
+    0 2px 10px rgba(0, 0, 0, 0.32);
 }
 
 /*Styles for the home page, footer and CTA*/
@@ -611,6 +674,22 @@ font-weight: bold;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .home {
+    align-items: stretch;
+    overflow-x: clip;
+  }
+
+  /* Full-bleed hero: cancel horizontal padding from .App on small screens */
+  .home .hero {
+    width: calc(100% + 1.5rem);
+    max-width: none;
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+    box-sizing: border-box;
+  }
 }
 
 .hero {
