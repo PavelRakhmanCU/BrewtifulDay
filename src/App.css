@@ -124,11 +124,14 @@ cursor: pointer;
 }
 
 .navigation-menu ul li{
+  --nav-li-outline-width: 2px;
   list-style: none;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: var(--clr4);
+  outline: var(--nav-li-outline-width) solid rgba(208, 180, 159, 0.65);
+  outline-offset: calc(-1 * var(--nav-li-outline-width));
   transition: 0.5s;
   transition-delay: calc(var(--i)*0.1s);
   transform: translateX(-100%);
